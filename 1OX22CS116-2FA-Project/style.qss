@@ -1,0 +1,79 @@
+/* Base palette */
+QWidget {
+	background-color: #111418;
+	color: #e5e7eb;
+	font-family: Segoe UI, Roboto, Arial, sans-serif;
+	font-size: 10.5pt;
+}
+
+QMainWindow, QDialog {
+	background-color: #0e1116;
+}
+
+/* Headings */
+QLabel#Heading {
+	font-size: 18pt;
+	font-weight: 700;
+	color: #f3f4f6;
+}
+
+/* Buttons */
+QPushButton {
+	background-color: #1f2937;
+	color: #e5e7eb;
+	border: 1px solid #374151;
+	border-radius: 8px;
+	padding: 10px 16px;
+}
+QPushButton:hover {
+	background-color: #243041;
+}
+QPushButton:pressed {
+	background-color: #1a2332;
+}
+QPushButton:disabled {
+	background-color: #161b22;
+	color: #7a8699;
+	border-color: #2a3443;
+}
+
+/* Inputs */
+QLineEdit {
+	background-color: #0c1117;
+	border: 1px solid #2a3443;
+	border-radius: 6px;
+	padding: 8px 10px;
+	selection-background-color: #334155;
+}
+QLineEdit:focus {
+	border: 1px solid #3b82f6;
+}
+
+/* Scroll areas */
+QScrollArea {
+	border: none;
+	background-color: transparent;
+}
+
+/* Image thumbs */
+QLabel[thumbnail="true"] {
+	border: 1px solid #263244;
+	border-radius: 6px;
+	background-color: #0b1016;
+}
+
+/* Accent labels */
+QLabel#accent {
+	color: #9ca3af;
+}
+
+/* Messages */
+QMessageBox {
+	background-color: #0e1116;
+}
+QMessageBox QLabel {
+	color: #e5e7eb;
+}
+
+/* Grid spacing look */
+QGridLayout { margin: 8px; }
