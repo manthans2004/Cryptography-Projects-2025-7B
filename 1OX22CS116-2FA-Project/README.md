@@ -1,25 +1,28 @@
-# 2FA Project
+# MLS-2FA: Two-Factor Authentication Project
 
 ## Team Members
-- Your Name (USN: 1OX22CS099)
+- Nikhil NV (USN: 1OX22CS116)
 
-## Brief Description
-A Two-Factor Authentication (2FA) system using cryptography and steganography for secure user authentication.
+## Project Description
+This project is a Proof of Concept (PoC) for a Two-Factor Authentication (2FA) system using cryptography and steganography. Users register by selecting a secret image, clicking a secret spot, and setting a passphrase. Authentication requires the correct image, spot, and passphrase, making the system highly secure.
+
+## Features
+- User registration with image, secret spot, and passphrase
+- Secure token encryption using Fernet (cryptography)
+- Steganography for hiding tokens in images
+- Decoy images for added security
+- Admin debug tools for ciphertext inspection
 
 ## Steps to Run the Project
-1. Install dependencies:
-   ```
-pip install -r requirements.txt
-   ```
+
+1. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
 2. Run the application:
    ```
 python main.py
    ```
 
-## Screenshots
-Add screenshots in this folder and link them here:
+do it in virtual environment
 
-![Screenshot1](./screenshot1.png)
 
----
-Replace the above details with your actual team info, description, and screenshots.
