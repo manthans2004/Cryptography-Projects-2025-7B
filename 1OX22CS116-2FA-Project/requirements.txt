@@ -1,0 +1,4 @@
+PyQt5>=5.15.9
+Pillow>=10.0.0
+stegano>=0.11.2
+cryptography>=42.0.0
