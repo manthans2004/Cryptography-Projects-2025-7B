@@ -1,0 +1,74 @@
+:root{
+  --bg: #0f1724;
+  --card: #0b1220;
+  --muted: #9aa7bf;
+  --accent: #6ee7b7;
+  --glass: rgba(255,255,255,0.03);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg,#071023 0%, #07142b 100%);
+  color:#e6eef6;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding:32px;
+}
+.container{
+  max-width:900px;
+  margin:0 auto;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:12px;
+  padding:24px;
+  box-shadow: 0 6px 30px rgba(2,6,23,0.6);
+}
+h1{margin:0 0 6px 0;font-size:28px}
+.tagline{margin:0 0 18px 0;color:var(--muted)}
+label{display:block;margin-top:12px;margin-bottom:6px;color:var(--muted);font-size:13px}
+textarea{
+  width:100%;
+  resize:vertical;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.04);
+  background:var(--glass);
+  color:inherit;
+  font-size:15px;
+  min-height:120px;
+}
+.controls{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-top:12px;
+  flex-wrap:wrap;
+}
+button{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.06);
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:14px;
+  color:inherit;
+}
+button:hover{transform:translateY(-1px)}
+.small{font-size:13px;color:var(--muted)}
+.notes{margin-top:18px;color:var(--muted);font-size:14px}
+.switch{position:relative;display:inline-block;width:42px;height:26px}
+.switch input{opacity:0;width:0;height:0}
+.slider{
+  position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;
+  background:rgba(255,255,255,0.06);border-radius:34px;transition:.2s
+}
+.slider:before{
+  position:absolute;content:"";height:18px;width:18px;left:4px;bottom:4px;background:white;border-radius:50%;transition:.2s
+}
+.switch input:checked + .slider{background:var(--accent)}
+.switch input:checked + .slider:before{transform:translateX(16px)}
+@media (max-width:560px){
+  .controls{flex-direction:column;align-items:stretch}
+  button{width:100%}
+}
