@@ -2,6 +2,7 @@
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/Lyynn777/multi-prime-dh/blob/main/multi-prime-dh.ipynb)
 
+Team Members: Nidhi Mannopantar (1OX22CS115), Pragya M S (1OX22CS122)
 ---
 
 ## **Project Overview**
@@ -37,31 +38,7 @@ This project demonstrates a **Multi-Prime Diffie-Hellman key exchange protocol**
    - Shared key computation
    - AES message encryption/decryption
    - Performance comparison
-   - Interactive demo
-
----
-
-## **Folder Structure**
-multi-prime-dh/
-│
-
-├── Multi-Prime_Diffie_Hellman.ipynb # Main Colab notebook
-
-├── multi_prime_dh_flowchart.png # Flowchart image generated in notebook
-
-└── README.md # Project documentation
-
-
----
-
-## **Interactive Demo**
-- Use the slider to select **number of primes** (2–15).
-- Enter a **message** to encrypt.
-- The notebook will display:
-  - Final shared key
-  - Encrypted message (hex)
-  - Decrypted message
-  - Whether keys match
+   - Interactive demo (TBA)
 
 ---
 
@@ -70,7 +47,4 @@ multi-prime-dh/
 - Visualized as a **bar chart** for easier analysis.
 
 ---
-
-## **License**
-This project is **open-source**. Feel free to use, modify, and share for educational purposes.
 
