@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tower of Babel - ECC Hybrid Crypto Demo</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 2rem; color: #222; }
+    h1 { margin-bottom: 0.5rem; }
+    .subtitle { color: #666; margin-bottom: 1.5rem; }
+    form { display: grid; gap: 0.75rem; max-width: 800px; }
+    textarea, select, input[type=text] { width: 100%; padding: 0.5rem; font-size: 1rem; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn { background: #2563eb; color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer; font-size: 1rem; }
+    .btn:hover { background: #1d4ed8; }
+    .error { color: #b91c1c; background: #fee2e2; padding: 0.75rem; border-radius: 6px; }
+    .card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+    pre { background: #0b1020; color: #d1e7ff; padding: 0.75rem; border-radius: 6px; overflow-x: auto; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .muted { color: #666; font-size: 0.95rem; }
+    label { font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Tower of Babel</h1>
+  <div class="subtitle">ECC-based hybrid cryptography demo with authenticated key exchange, AES-CBC, and a block permutation obfuscation layer.</div>
+
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+
+  <form method="POST">
+    <label for="message">Message</label>
+    <textarea id="message" name="message" rows="4" placeholder="Type your secret message...">{{ message }}</textarea>
+
+    <div class="row">
+      <div>
+        <label for="sender">Sender</label>
+        <select id="sender" name="sender">
+          {% for u in users %}
+            <option value="{{ u }}" {% if selected_sender == u %}selected{% endif %}>{{ u }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="recipient">Recipient</label>
+        <select id="recipient" name="recipient">
+          {% for u in users %}
+            <option value="{{ u }}" {% if selected_recipient == u %}selected{% endif %}>{{ u }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <button class="btn" type="submit">Encrypt + Decrypt</button>
+  </form>
+
+  {% if result %}
+    <div class="card">
+      <h2>Results</h2>
+      <p class="muted">Context: {{ result.context }}</p>
+
+      <h3>Keys</h3>
+      <p><strong>CA Public Key (PEM)</strong></p>
+      <pre><code>{{ result.ca_pub }}</code></pre>
+
+      <p><strong>Sender ({{ result.sender }}) Public Key (PEM)</strong></p>
+      <pre><code>{{ result.sender_pub }}</code></pre>
+
+      <p><strong>Recipient ({{ result.recipient }}) Public Key (PEM)</strong></p>
+      <pre><code>{{ result.recipient_pub }}</code></pre>
+
+      <h3>ECDH Shared Secret (hashed)</h3>
+      <p class="muted">SHA-256(ECDH shared secret)</p>
+      <pre><code>{{ result.shared_secret_hash_hex }}</code></pre>
+
+      <h3>Raw AES-CBC</h3>
+      <p><strong>IV (base64)</strong></p>
+      <pre><code>{{ result.iv_b64 }}</code></pre>
+      <p><strong>Ciphertext (base64)</strong></p>
+      <pre><code>{{ result.ciphertext_b64 }}</code></pre>
+
+      <h3>Tower of Babel Obfuscation</h3>
+      <p class="muted">Ciphertext blocks are deterministically permuted based on the derived key and IV.</p>
+      <p><strong>Permutation order (list of original block indices)</strong></p>
+      <pre><code>{{ result.permutation }}</code></pre>
+      <p><strong>Permuted Ciphertext (base64)</strong></p>
+      <pre><code>{{ result.permuted_ciphertext_b64 }}</code></pre>
+
+      <h3>Decrypted by Recipient</h3>
+      <pre><code>{{ result.decrypted_plaintext }}</code></pre>
+    </div>
+  {% endif %}
+
+  <div class="card">
+    <h2>About</h2>
+    <ul>
+      <li><strong>Key Generation</strong>: Each user has an ECC P-256 key pair.</li>
+      <li><strong>Authenticated Exchange</strong>: A mini-CA ECDSA-signs user public keys.</li>
+      <li><strong>Key Derivation</strong>: ECDH secret -> SHA-256 based KDF to 256-bit AES key.</li>
+      <li><strong>Encryption</strong>: AES-CBC with PKCS#7 padding.</li>
+      <li><strong>Obfuscation</strong>: Deterministic block permutation using SHA-256(key||iv||i).</li>
+    </ul>
+  </div>
+</body>
+</html>
