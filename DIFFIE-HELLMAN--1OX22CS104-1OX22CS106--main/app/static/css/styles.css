@@ -1,0 +1,50 @@
+* { box-sizing: border-box; }
+
+/* Theme variables */
+:root {
+  /* Black + Blue with Gray accents */
+  --bg: #0b0f14;           /* near-black */
+  --fg: #e6e9ef;           /* soft light gray for text */
+  --card-bg: #0f141b;      /* dark gray-blue for cards */
+  --border: #1f2a37;       /* cool gray border */
+  --muted: #2b3b4f;        /* muted gray-blue for inputs/borders */
+  --input-bg: #0c1117;     /* slightly lighter than bg */
+  --primary: #3b82f6;      /* blue */
+  --primary-hover: #2563eb;/* deeper blue on hover */
+}
+
+/* Light theme overrides */
+.theme-light {
+  --bg: #f6f7fb;
+  --fg: #0f172a;
+  --card-bg: #ffffff;
+  --border: #e5e7eb;
+  --muted: #cbd5e1;
+  --input-bg: #ffffff;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+}
+
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+}
+.container { max-width: 1000px; margin: 0 auto; padding: 24px; }
+h1 { margin: 0; font-size: 28px; }
+.subtitle { opacity: 0.8; margin: 6px 0 18px; }
+.card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin: 16px 0; }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.grid.two { grid-template-columns: 1fr 1fr; }
+label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+input, textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--muted); background: var(--input-bg); color: var(--fg); }
+textarea { min-height: 110px; resize: vertical; }
+button { background: var(--primary); border: none; color: white; padding: 10px 14px; border-radius: 8px; cursor: pointer; }
+button:hover { background: var(--primary-hover); }
+.output { margin-top: 12px; background: var(--input-bg); border: 1px solid var(--muted); border-radius: 8px; padding: 10px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; white-space: pre-wrap; word-break: break-word; }
+.row { display: flex; gap: 8px; margin-top: 8px; }
+.tip { font-size: 12px; opacity: 0.8; margin-top: 10px; }
+footer { opacity: 0.7; font-size: 12px; margin-top: 16px; }
+@media (max-width: 800px){ .grid{ grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px){ .grid{ grid-template-columns: 1fr; } }
