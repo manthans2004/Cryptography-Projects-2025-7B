@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: project-citadel
-    env: python
-    plan: free
-    branch: final_citadel_deployment
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
-    pythonVersion: "3.11.9"
