@@ -1,0 +1,131 @@
+import os
+import base64
+from typing import Tuple
+
+# -------------------------
+# Vigenere Cipher (A–Z letters only, preserves non-letters)
+# -------------------------
+def vigenere_encrypt(plaintext: str, key: str) -> str:
+    ciphertext = []
+    key = key.upper()
+    ki = 0
+    for ch in plaintext:
+        if 'A' <= ch.upper() <= 'Z':
+            p = ord(ch.upper()) - ord('A')
+            k = ord(key[ki % len(key)]) - ord('A')
+            c = (p + k) % 26
+            out_char = chr(c + ord('A'))
+            ciphertext.append(out_char if ch.isupper() else out_char.lower())
+            ki += 1
+        else:
+            ciphertext.append(ch)
+    return ''.join(ciphertext)
+
+
+def vigenere_decrypt(ciphertext: str, key: str) -> str:
+    plaintext = []
+    key = key.upper()
+    ki = 0
+    for ch in ciphertext:
+        if 'A' <= ch.upper() <= 'Z':
+            c = ord(ch.upper()) - ord('A')
+            k = ord(key[ki % len(key)]) - ord('A')
+            p = (c - k) % 26
+            out_char = chr(p + ord('A'))
+            plaintext.append(out_char if ch.isupper() else out_char.lower())
+            ki += 1
+        else:
+            plaintext.append(ch)
+    return ''.join(plaintext)
+
+# -------------------------
+# OTP Layer (XOR encryption)
+# -------------------------
+def generate_otp(length: int) -> bytes:
+    return os.urandom(length)
+
+def encrypt_with_otp_layer(plaintext: str, vigenere_key: str) -> Tuple[str, bytes, str]:
+    # Step 1: Vigenere encryption
+    inter = vigenere_encrypt(plaintext, vigenere_key)
+    print(f"\n[Step 1] After Vigenere Encryption: {inter}")
+
+    # Step 2: Convert to bytes
+    inter_bytes = inter.encode('utf-8')
+    print(f"[Step 2] Intermediate Text as Bytes: {inter_bytes}")
+
+    # Step 3: Generate OTP
+    otp = generate_otp(len(inter_bytes))
+    print(f"[Step 3] Generated OTP (bytes): {otp}")
+    print(f"[Step 3] Generated OTP (hex): {otp.hex()}")
+
+    # Step 4: XOR each byte
+    cipher_bytes = bytes(b ^ otp[i] for i, b in enumerate(inter_bytes))
+    print(f"[Step 4] Cipher Bytes after XOR: {cipher_bytes}")
+
+    # Step 5: Base64 encode
+    b64_cipher = base64.b64encode(cipher_bytes).decode('ascii')
+    print(f"[Step 5] Final Ciphertext (Base64): {b64_cipher}")
+
+    return b64_cipher, otp, inter
+
+def decrypt_with_otp_layer(b64_ciphertext: str, otp: bytes, vigenere_key: str) -> str:
+    print("\n----------------------------")
+    print("Now starting DECRYPTION...")
+    print("----------------------------")
+
+    # Step 1: Base64 decode
+    cipher_bytes = base64.b64decode(b64_ciphertext)
+    print(f"[Step 1] Base64-decoded Cipher Bytes: {cipher_bytes}")
+
+    # Step 2: XOR with OTP
+    inter_bytes = bytes(b ^ otp[i] for i, b in enumerate(cipher_bytes))
+    print(f"[Step 2] After XOR with OTP: {inter_bytes}")
+
+    # Step 3: Convert bytes back to string
+    inter_text = inter_bytes.decode('utf-8')
+    print(f"[Step 3] Intermediate Text (Before Vigenere Decrypt): {inter_text}")
+
+    # Step 4: Vigenere decryption
+    plaintext = vigenere_decrypt(inter_text, vigenere_key)
+    print(f"[Step 4] Final Recovered Plaintext: {plaintext}")
+
+    return plaintext
+
+# -------------------------
+# MAIN PROGRAM
+# -------------------------
+if __name__ == "__main__":
+    print("=== SECURE HYBRID ENCRYPTION (Vigenere + OTP) ===")
+
+    # Take input from user
+    plaintext = input("Enter your plaintext message: ")
+    v_key = input("Enter Vigenere key: ")
+
+    # Encryption
+    print("\nEncrypting...")
+    ciphertext_b64, otp, inter_text = encrypt_with_otp_layer(plaintext, v_key)
+
+    # Display results
+    print("\n=======================")
+    print("ENCRYPTION SUMMARY")
+    print("=======================")
+    print(f"Original Plaintext : {plaintext}")
+    print(f"Vigenere Key       : {v_key}")
+    print(f"Vigenere Output    : {inter_text}")
+    print(f"Ciphertext (Base64): {ciphertext_b64}")
+    print(f"OTP (hex)          : {otp.hex()}")
+    print("=======================\n")
+
+    # Decryption
+    recovered = decrypt_with_otp_layer(ciphertext_b64, otp, v_key)
+    print("\n=======================")
+    print("FINAL RESULT")
+    print("=======================")
+    print(f"Recovered Plaintext: {recovered}")
+    print("=======================\n")
+
+    # Verification
+    if recovered == plaintext:
+        print("✅ Verification: Success! Original and recovered plaintext match.")
+    else:
+        print("❌ Verification: Mismatch detected.")

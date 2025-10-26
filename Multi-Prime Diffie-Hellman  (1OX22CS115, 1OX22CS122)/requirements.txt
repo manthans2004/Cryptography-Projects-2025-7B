@@ -1,5 +1,0 @@
-sympy
-matplotlib
-pycryptodome
-graphviz
-ipywidgets
