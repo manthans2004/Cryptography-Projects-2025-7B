@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diffie-Hellman Key Exchange Demo</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Diffie-Hellman Key Exchange & Secure Messaging</h1>
+    <p class="subtitle">Interactive demo of key generation, encryption, and decryption.</p>
+
+    <section class="card">
+      <h2>Parameters</h2>
+      <div class="grid">
+        <label title="A large prime modulus.">Prime p <input id="p" type="number" placeholder="e.g., 23" /></label>
+        <label title="A generator modulo p.">Base g <input id="g" type="number" placeholder="e.g., 5" /></label>
+        <label title="Alice's private key (1..p-2)">Alice a <input id="a" type="number" placeholder="e.g., 6" /></label>
+        <label title="Bob's private key (1..p-2)">Bob b <input id="b" type="number" placeholder="e.g., 15" /></label>
+      </div>
+      <button id="btn-compute">Compute Keys</button>
+      <div id="compute-output" class="output"></div>
+    </section>
+
+    <section class="card">
+      <h2>Send a Message</h2>
+      <div class="grid two">
+        <div>
+          <h3>Alice to Bob</h3>
+          <textarea id="msg-alice" placeholder="Message from Alice to Bob"></textarea>
+          <div class="row">
+            <button id="btn-encrypt-alice">Encrypt & Show Ciphertext</button>
+            <button id="btn-decrypt-alice">Decrypt as Bob</button>
+          </div>
+          <div id="alice-crypto-output" class="output"></div>
+        </div>
+        
+      </div>
+      <p class="tip">Tip: This demo uses the shared secret derived from your inputs to encrypt with Fernet (AES128-CBC + HMAC) under the hood, via the Python cryptography library.</p>
+    </section>
+
+    
+  </div>
+
+  <script src="/static/js/main.js"></script>
+</body>
+</html>
