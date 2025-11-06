@@ -1,0 +1,4 @@
+Flask==3.0.3
+zxcvbn==4.4.28
+
+gunicorn>=21.2
