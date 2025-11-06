@@ -1,0 +1,21 @@
+/* Minimal styling to satisfy link reference */
+body {
+  background-color: #f8f9fa;
+}
+
+.card {
+  border-radius: 0.5rem;
+}
+body {
+  background-color: #f8f9fa;
+}
+
+.card-title {
+  font-weight: 600;
+}
+
+footer {
+  color: #6c757d;
+}
+
+
